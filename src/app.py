@@ -46,8 +46,10 @@ def upload_file():
 @app.route('/result/<filename>', methods=['GET'])
 def converted_file(filename):
     download_url = url_for('download_file', filename=filename)
+    home_url = url_for('landing')
     return template.format(
-        body=f'''<p>Файл был успешно конвертирован: <a href="{download_url}">{filename}</a></p>''')
+        body=f'''<p>Файл был успешно конвертирован: <a href="{download_url}">{filename}</a></p>
+<p><a href="{home_url}">Конвертировать другой файл</a>.</p>''')
 
 
 @app.route('/download/<filename>', methods=['GET'])
