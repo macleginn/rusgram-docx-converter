@@ -3,7 +3,41 @@ import os
 import re
 
 INPUT_DIR = os.path.join('..', 'converted')
+PREFIX = '''\\documentclass[a4paper]{article}
 
+\\makeatletter
+\\renewcommand\\tableofcontents{%
+    \\@starttoc{toc}%
+}
+\\makeatother
+
+\\linespread{1.2}
+
+\\usepackage[russian]{babel}
+\\usepackage{csquotes}
+
+\\usepackage{fontspec}
+\\setmainfont{PT Serif}
+
+\\usepackage{hyperref}
+
+\\usepackage{linguex}
+\\usepackage{multirow}
+\\usepackage{graphicx}
+\\usepackage{longtable}
+\\usepackage{booktabs}
+
+%\\title{}
+%\\author{}
+%\\date{}
+
+\\hyphenation{}
+
+\\begin{document}
+
+\\maketitle
+
+'''
 
 def cleanup(filename):
     in_path = os.path.join(INPUT_DIR, filename)
@@ -39,6 +73,10 @@ def cleanup(filename):
 
     # Normalise dashes
     txt = txt.replace(' -- ', ' --- ')
+
+    # Make a standalone document
+
+    txt = PREFIX + txt + "\n\n \\end{document}"
 
     new_filename = filename.replace('.tex', '_cleaned.tex')
     with open(os.path.join(INPUT_DIR, new_filename), 'w', encoding='utf-8') as out:
