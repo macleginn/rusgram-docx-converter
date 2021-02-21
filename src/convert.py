@@ -18,7 +18,7 @@ def convert_file(filename):
     if not os.path.exists(in_path):
         raise FileNotFoundError(
             'The requisite file is not found in the "uploads" directory.')
-    run(['pandoc', '-t', 'latex', '-o', out_path, in_path])
+    run(['./pandoc', '-t', 'latex', '-o', out_path, in_path])
     return new_filename
 
 
